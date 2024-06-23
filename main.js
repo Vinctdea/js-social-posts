@@ -60,6 +60,7 @@ const posts = [
 // Descrizione
 // Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script JS in cui:
 // Milestone 1 - Leggiamo per bene il nostro array di oggetti che rappresentano ciascun post, così da capire bene i dati come sono strutturati;
+// Milestone 2 - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
 const container = document.getElementById("container");
 
 posts.forEach(element => {
@@ -90,15 +91,30 @@ container.innerHTML +=
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                        Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                     </div>
                 </div> 
             </div>            
         </div>
 
 `
-    
+   
+    // Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+const btnLike = document.getElementsByClassName("likes");
+for (let index = 0; index < btnLike.length; index++) {
+    const elem = btnLike[index];
+    elem.addEventListener("click",
+        function(e){
+            e.preventDefault();
+            console.log(elem);  
+            const liked = document.querySelector(".like-button"); 
+            const LikeCounter = document.querySelector(".likes__counter");
+            liked.classList.toggle("like-button--liked"); 
+        }
+    )
+}
+
 });
 
-// Milestone 2 - Prendendo come riferimento il layout di esempio presente nell’html, stampiamo i post del nostro feed.
-// Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
